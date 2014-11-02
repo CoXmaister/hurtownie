@@ -25,6 +25,7 @@ namespace Generator1
             string PESEL = Person.GenerateNumber(rand, 11);
             string adress = Person.GenerateAddress(rand, Person.cities, Person.streets);
 
+
             var aktor = new Aktor {Pesel = PESEL, Imie = name, Nazwisko = second_name};
 
             return aktor;
