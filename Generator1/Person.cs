@@ -24,9 +24,9 @@ namespace Generator1
             Random rand = new Random();
 
 
-            string name = GenerateName(names);
-            string second_name = GenerateName(second_names);
-            string nickname = GenerateName(nicknames);
+            string name = GenerateName(names,rand);
+            string second_name = GenerateName(second_names,rand);
+            string nickname = GenerateName(nicknames,rand);
             string PESEL = GenerateNumber(rand, 11);
             string PhoneNumber = GenerateNumber(rand, 9);
             string email = GenerateEmail(rand, name, second_name);
@@ -37,7 +37,6 @@ namespace Generator1
             person.Append(name + ',');
             person.Append(second_name + ',');
             person.Append(nickname);
-            person.Append(name);
             /*
             person.Append(PhoneNumber + ',');
             person.Append(email + ',');
@@ -58,9 +57,8 @@ namespace Generator1
             return telNo.ToString();
         }
 
-        public static string GenerateName(string[] list)
+        public static string GenerateName(string[] list, Random rand)
         {
-            Random rand = new Random();
             int index = rand.Next(list.Length);
             string ret = list[index];
             ret = ClearString(ret,"name");
@@ -128,7 +126,7 @@ namespace Generator1
             return "'" + email + "'";
         }
 
-        public static string GenerateAddress(Random rand, string[] cities, string[] streets, string kodPocz, string streetNumb, string city)
+        public static string GenerateAddress(Random rand, string[] cities, string[] streets,out string kodPocz,out string streetNumb,out string city)
         {
             int index = rand.Next(cities.Length);
             int index2 = rand.Next(streets.Length);
