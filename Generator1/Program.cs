@@ -12,7 +12,9 @@ namespace Generator1
         static List<Aktor>kolekcjaAktors = new List<Aktor>();
         static Aktor aktor = new Aktor();
         static List<Author>kolekcjaAuthors = new List<Author>();
-        static Author author = new Author();    
+        static Author author = new Author();
+        static List<Ticket> kolekcjaTickets = new List<Ticket>();
+        static Ticket bilet = new Ticket();
             
         [STAThread] 
         static void Main()
@@ -27,6 +29,10 @@ namespace Generator1
             {
                 aktor = Aktor.GenerateAktor(rand);// generowanie pojedynczego aktora
                 kolekcjaAktors.Add(aktor);//dodanie doi kolekcji
+
+                bilet = Ticket.GenerateTicket(rand, 100, i);// generowanie pojedynczego biletu
+                kolekcjaTickets.Add(bilet);//dodanie doi kolekcji
+                
                 //string do pliku
                 aktorStr.Append(aktor.Pesel + ',');
                 aktorStr.Append(aktor.Imie + ',');
