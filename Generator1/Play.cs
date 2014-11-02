@@ -9,6 +9,12 @@ namespace Generator1
     class Play
     {
         public static string[] names = System.IO.File.ReadAllLines(@"sztuki.txt");
+        public static string[] generes = { "dramat", "komedia", "opera", "pantomima", "lalki" };
+        public string Tytul { get; set; }
+        public string Autor { get; set; }
+        public string Gatunek { get; set; }
+        public List<Aktor> ListaAktorow { get; set; }
+        public string Rezyser { get; set; }
 
         static string GeneratePlay(int amount)
         {
@@ -20,6 +26,26 @@ namespace Generator1
             play.Append(name+',');
             play.Append(genere + ',');
             return play.ToString();
+        }
+
+        public static Play GeneratePlay(Random rand, int amount, List<Aktor> kolekcjaAktors, List<Author> kolekcjaAuthors)
+        {
+            Play play = new Play();
+            play.Tytul = GenerateName(rand, names, amount);
+            Author author = kolekcjaAuthors[rand.Next(kolekcjaAuthors.Count)];
+            play.Autor = author.Imie + " " + author.Nazwisko;
+            play.Gatunek = generes[rand.Next(generes.Length)];
+            author = kolekcjaAuthors[rand.Next(kolekcjaAuthors.Count)];
+            play.Rezyser = author.Imie + " " + author.Nazwisko;
+            List<Aktor> lista = new List<Aktor>();
+            int count = rand.Next(5, 15);
+            int random = rand.Next(kolekcjaAktors.Count-count-1);
+            for (int i = 0; i < count; i++)
+            {
+                lista.Add(kolekcjaAktors[random+i]);
+            }
+            play.ListaAktorow = lista;
+            return play;
         }
         static string GenerateName(Random rand, string[] list, int amount)
         {
