@@ -42,7 +42,7 @@ namespace Generator1
                 person.Clear();
             }
 
-            // Excel1.generateExcel();
+            Excel1.generateExcel(kolekcjaAktors);
             Console.ReadLine();
         }
     }

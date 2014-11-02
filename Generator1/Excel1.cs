@@ -10,15 +10,8 @@ namespace Generator1
 {
     class Excel1
     {
-        public static void generateExcel()
+        public static void generateExcel(List<Aktor> kolekcjaAktors)
         {
-            //~~> Change Your String here
-            String textString = "I'm trying to add a pretty long text into the Excel sheet by using sheet. I use this code:" + Environment.NewLine +
-                               "worksheet.Cells[1, 1] = textString;" + Environment.NewLine +
-                               "The result is here:";
-
-            Clipboard.SetText(textString);
-
             Microsoft.Office.Interop.Excel.Application xlexcel;
             Microsoft.Office.Interop.Excel.Workbook xlWorkBook;
             Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet;
@@ -31,14 +24,54 @@ namespace Generator1
             xlWorkBook = xlexcel.Workbooks.Add(misValue);
 
             //~~> Set Sheet 1 as the sheet you want to work with
-            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.Item[2];
+            xlWorkSheet.Select();
+            String Column="";
 
-            //~~> Set your range
-            Excel.Range CR = (Excel.Range)xlWorkSheet.Cells[1, 1];
+            Excel.Range CR;
+            for (int i = 1; i < 8 + 1; i++)
+            {
+                foreach (Aktor Aktor in kolekcjaAktors)
+                {
+                    switch (i)
+                    {
+                        case 1:
+                            Column += Aktor.Pesel + Environment.NewLine;
+                            break;
+                        case 2:
+                            Column += Aktor.Imie + " " + Aktor.Nazwisko + Environment.NewLine;
+                            break;
+                        case 3:
+                            Column += Aktor.Numer + Environment.NewLine;
+                            break;
+                        case 4:
+                            Column += Aktor.Ulica_i_numer_domu + Environment.NewLine;
+                            break;
+                        case 5:
+                            Column += Aktor.Kod_pocztowy + Environment.NewLine;
+                            break;
+                        case 6:
+                            Column += Aktor.Miasto + Environment.NewLine;
+                            break;
+                        case 7:
+                            Column += Aktor.Gaza + Environment.NewLine;
+                            break;
+                        case 8:
+                            Column += Aktor.Wiek + Environment.NewLine;
+                            break;
+                    }
+                }
+                Clipboard.SetText(Column);
+                Column = "";
+                //~~> Set your range
+                CR = (Excel.Range)xlWorkSheet.Cells[1, i];
 
-            CR.Select();
+                CR.Select();
 
-            xlWorkSheet.Paste(CR, false);
+                xlWorkSheet.Paste(CR, false);
+            }
+
+            
 
             xlWorkBook.Close(true, misValue, misValue);
             xlexcel.Quit();
