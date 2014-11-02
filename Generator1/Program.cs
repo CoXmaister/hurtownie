@@ -15,6 +15,8 @@ namespace Generator1
         static Author author = new Author();
         static List<Ticket> kolekcjaTickets = new List<Ticket>();
         static Ticket bilet = new Ticket();
+        static List<Play> kolekcjaPlay = new List<Play>();
+        static Play play = new Play();
             
         [STAThread] 
         static void Main()
@@ -22,16 +24,17 @@ namespace Generator1
             int ilosc = 20;
             var strWriterAktor = new StreamWriter("daneAktor.bulk");
             var strWriterAuthor = new StreamWriter("daneAutor.bulk");
+            var strWriterTicket = new StreamWriter("daneBilet.bulk");
+            var strWriterPlay = new StreamWriter("daneSztuka.bulk");
             StringBuilder aktorStr = new StringBuilder(100);
             StringBuilder authorStr = new StringBuilder(100);
+            StringBuilder ticketStr = new StringBuilder(100); 
+            StringBuilder playStr = new StringBuilder(100);
             Random rand = new Random();
             for (int i = 0; i < ilosc; i++)
             {
                 aktor = Aktor.GenerateAktor(rand);// generowanie pojedynczego aktora
                 kolekcjaAktors.Add(aktor);//dodanie doi kolekcji
-
-                bilet = Ticket.GenerateTicket(rand, 100, i);// generowanie pojedynczego biletu
-                kolekcjaTickets.Add(bilet);//dodanie doi kolekcji
                 
                 //string do pliku
                 aktorStr.Append(aktor.Pesel + ',');
@@ -63,12 +66,51 @@ namespace Generator1
                 authorStr.Clear();
             }
 
-            for (int i = 0; i < ilosc-ilosc/2; i++)
+            for (int i = 0; i < ilosc/4; i++)
             {
-                
+                play = Play.GeneratePlay(rand, ilosc/4, kolekcjaAktors, kolekcjaAuthors, i);
+                kolekcjaPlay.Add(play);
+
+                playStr.Append(play.ID + ",");
+                playStr.Append(play.Tytul + ",");
+                playStr.Append(play.Gatunek);
+
+                if (i < (ilosc/4) - 1)
+                {
+                    strWriterPlay.WriteLine(playStr);
+                }
+                else
+                {
+                    strWriterPlay.Write(playStr);
+                }
+
+                strWriterPlay.Flush();
+                playStr.Clear();
             }
 
-            Excel1.generateExcel(kolekcjaAktors,kolekcjaAuthors);
+            for (int i = 0; i < ilosc*100; i++)
+            {
+                bilet = Ticket.GenerateTicket(rand, 100, i);// generowanie pojedynczego biletu
+                kolekcjaTickets.Add(bilet);//dodanie do kolekcji
+
+                ticketStr.Append(bilet.id + ",");
+                ticketStr.Append(bilet.Ulga + ",");
+                ticketStr.Append(bilet.Cena);
+
+                if (i < ilosc * 100 - 1)
+                {
+                    strWriterTicket.WriteLine(ticketStr);
+                }
+                else
+                {
+                    strWriterTicket.Write(ticketStr);
+                }
+
+                strWriterTicket.Flush();
+                ticketStr.Clear();
+            }
+
+            // Excel1.generateExcel(kolekcjaAktors,kolekcjaAuthors);
             Console.ReadLine();
         }
     }
