@@ -63,6 +63,11 @@ namespace Generator1
                 authorStr.Clear();
             }
 
+            for (int i = 0; i < ilosc-ilosc/2; i++)
+            {
+                
+            }
+
             Excel1.generateExcel(kolekcjaAktors,kolekcjaAuthors);
             Console.ReadLine();
         }

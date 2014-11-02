@@ -15,7 +15,7 @@ namespace Generator1
         public string Gatunek { get; set; }
         public List<Aktor> ListaAktorow { get; set; }
         public string Rezyser { get; set; }
-
+        public string ID { get; set; }
         static string GeneratePlay(int amount)
         {
             StringBuilder play = new StringBuilder(100);
@@ -28,7 +28,7 @@ namespace Generator1
             return play.ToString();
         }
 
-        public static Play GeneratePlay(Random rand, int amount, List<Aktor> kolekcjaAktors, List<Author> kolekcjaAuthors)
+        public static Play GeneratePlay(Random rand, int amount, List<Aktor> kolekcjaAktors, List<Author> kolekcjaAuthors, int id)
         {
             Play play = new Play();
             play.Tytul = GenerateName(rand, names, amount);
@@ -45,6 +45,7 @@ namespace Generator1
                 lista.Add(kolekcjaAktors[random+i]);
             }
             play.ListaAktorow = lista;
+            play.ID = id.ToString();
             return play;
         }
         static string GenerateName(Random rand, string[] list, int amount)
