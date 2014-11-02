@@ -21,8 +21,9 @@ namespace Generator1
             Random rand = new Random();
             for (int i = 0; i < ilosc; i++)
             {
-                aktor = Aktor.GenerateAktor(rand);
-                kolekcjaAktors.Add(aktor);
+                aktor = Aktor.GenerateAktor(rand);// generowanie pojedynczego aktora
+                kolekcjaAktors.Add(aktor);//dodanie doi kolekcji
+                //string do pliku
                 person.Append(aktor.Pesel + ',');
                 person.Append(aktor.Imie + ',');
                 person.Append(aktor.Nazwisko + ',');
