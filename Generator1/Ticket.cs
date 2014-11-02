@@ -16,7 +16,6 @@ namespace Generator1
             int ulga = rand.Next(0, 5) * 10;
             int price = basePrice - ulga;
             var bilet = new Ticket { Ulga = ulga.ToString(), Cena = price.ToString() };
-           
             return bilet;
         }
     }

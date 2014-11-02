@@ -52,6 +52,7 @@
     <Compile Include="Play.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Teatr.cs" />
     <Compile Include="Ticket.cs" />
   </ItemGroup>
   <ItemGroup>
