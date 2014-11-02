@@ -14,6 +14,7 @@ namespace Generator1
 
         public static string[] names = System.IO.File.ReadAllLines(@"lista_polskich_imion.txt");
         public static string[] second_names = System.IO.File.ReadAllLines(@"nazwiska.txt");
+        public static string[] nicknames = System.IO.File.ReadAllLines(@"pseudonimy.txt");
         public static string[] streets = System.IO.File.ReadAllLines(@"ulice.txt");
         public static string[] cities = System.IO.File.ReadAllLines(@"miasta.txt");
 
@@ -26,6 +27,7 @@ namespace Generator1
 
             string name = GenerateName(names);
             string second_name = GenerateName(second_names);
+            string nickname = GenerateName(nicknames);
             string PESEL = GenerateNumber(rand, 11);
             string PhoneNumber = GenerateNumber(rand, 9);
             string email = GenerateEmail(rand, name, second_name);
@@ -35,6 +37,7 @@ namespace Generator1
             person.Append(PESEL + ',');
             person.Append(name + ',');
             person.Append(second_name + ',');
+            person.Append(nickname);
             person.Append(name);
             /*
             person.Append(PhoneNumber + ',');
