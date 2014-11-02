@@ -10,7 +10,7 @@ namespace Generator1
 {
     class Excel1
     {
-        public static void generateExcel(List<Aktor> kolekcjaAktors)
+        public static void generateExcel(List<Aktor> kolekcjaAktors, List<Author> kolekcjaAuthors)
         {
             Microsoft.Office.Interop.Excel.Application xlexcel;
             Microsoft.Office.Interop.Excel.Workbook xlWorkBook;
@@ -68,10 +68,72 @@ namespace Generator1
 
                 CR.Select();
 
-                xlWorkSheet.Paste(CR, false);
+                try
+                {
+                    xlWorkSheet.Paste(CR, false);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Unable to Paste clippboard to sheet. Restart program: " + ex.ToString());
+                }
             }
 
-            
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.Item[1];
+            xlWorkSheet.Select();
+
+            for (int i = 1; i < 9 + 1; i++)
+            {
+                foreach (Author author in kolekcjaAuthors)
+                {
+                    switch (i)
+                    {
+                        case 1:
+                            Column += author.Pesel + Environment.NewLine;
+                            break;
+                        case 2:
+                            Column += author.Imie + " " + author.Nazwisko + Environment.NewLine;
+                            break;
+                        case 3:
+                            Column += author.Numer + Environment.NewLine;
+                            break;
+                        case 4:
+                            Column += author.Ulica_i_numer_domu + Environment.NewLine;
+                            break;
+                        case 5:
+                            Column += author.Kod_pocztowy + Environment.NewLine;
+                            break;
+                        case 6:
+                            Column += author.Miasto + Environment.NewLine;
+                            break;
+                        case 7:
+                            Column += author.Gaza + Environment.NewLine;
+                            break;
+                        case 8:
+                            Column += author.Rola + Environment.NewLine;
+                            break;
+                        case 9:
+                            Column += author.Wiek + Environment.NewLine;
+                            break;
+                    }
+                }
+                Clipboard.SetText(Column);
+                Column = "";
+                //~~> Set your range
+                CR = (Excel.Range)xlWorkSheet.Cells[1, i];
+
+                CR.Select();
+                try
+                {
+                    xlWorkSheet.Paste(CR, false);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Unable to Paste clippboard to sheet " + ex.ToString());
+                }
+                
+            }
 
             xlWorkBook.Close(true, misValue, misValue);
             xlexcel.Quit();

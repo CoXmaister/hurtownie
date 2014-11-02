@@ -51,7 +51,7 @@ namespace Generator1
             int number;
             for (int i = 0; i < n; i++)
             {
-                number = rand.Next(0, 9);
+                number = rand.Next(i == 0 ? 1 : 0, 9);
                 telNo = telNo.Append(number.ToString());
             }
             return telNo.ToString();

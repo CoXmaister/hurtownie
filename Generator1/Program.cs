@@ -11,38 +11,53 @@ namespace Generator1
     {
         static List<Aktor>kolekcjaAktors = new List<Aktor>();
         static Aktor aktor = new Aktor();
-        
+        static List<Author>kolekcjaAuthors = new List<Author>();
+        static Author author = new Author();    
+            
         [STAThread] 
         static void Main()
         {
             int ilosc = 20;
-            var strWriter = new StreamWriter("daneAktor.bulk");
-            StringBuilder person = new StringBuilder(100);
+            var strWriterAktor = new StreamWriter("daneAktor.bulk");
+            var strWriterAuthor = new StreamWriter("daneAutor.bulk");
+            StringBuilder aktorStr = new StringBuilder(100);
+            StringBuilder authorStr = new StringBuilder(100);
             Random rand = new Random();
             for (int i = 0; i < ilosc; i++)
             {
                 aktor = Aktor.GenerateAktor(rand);// generowanie pojedynczego aktora
                 kolekcjaAktors.Add(aktor);//dodanie doi kolekcji
                 //string do pliku
-                person.Append(aktor.Pesel + ',');
-                person.Append(aktor.Imie + ',');
-                person.Append(aktor.Nazwisko + ',');
-                person.Append(aktor.nickname);
+                aktorStr.Append(aktor.Pesel + ',');
+                aktorStr.Append(aktor.Imie + ',');
+                aktorStr.Append(aktor.Nazwisko + ',');
+                aktorStr.Append(aktor.nickname);
+
+                author = Author.GenerateAuthor(rand);
+                kolekcjaAuthors.Add(author);
+                authorStr.Append(author.Pesel + ',');
+                authorStr.Append(author.Imie + ',');
+                authorStr.Append(author.Nazwisko + ',');
+                authorStr.Append(author.nickname);
 
                 if (i < ilosc - 1)
                 {
-                    strWriter.WriteLine(person);
+                    strWriterAktor.WriteLine(aktorStr);
+                    strWriterAuthor.WriteLine(authorStr);
                 }
                 else
                 {
-                    strWriter.Write(person);    
+                    strWriterAktor.Write(aktorStr);    
+                    strWriterAuthor.Write(authorStr);
                 }
 
-                strWriter.Flush();
-                person.Clear();
+                strWriterAktor.Flush();
+                strWriterAuthor.Flush();
+                aktorStr.Clear();
+                authorStr.Clear();
             }
 
-            Excel1.generateExcel(kolekcjaAktors);
+            Excel1.generateExcel(kolekcjaAktors,kolekcjaAuthors);
             Console.ReadLine();
         }
     }

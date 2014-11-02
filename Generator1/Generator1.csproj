@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aktor.cs" />
+    <Compile Include="Author.cs" />
     <Compile Include="Excel1.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Play.cs" />
