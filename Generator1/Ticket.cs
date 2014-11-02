@@ -8,17 +8,15 @@ namespace Generator1
 {
     class Ticket
     {
-
-        static string GenerateTicket(int basePrice)
+        public string Ulga { get; set; }
+        public string Cena { get; set; }
+  
+        public static Ticket GenerateTicket(Random rand, int basePrice)
         {
-            StringBuilder ticket = new StringBuilder(100);
-            Random rand = new Random();
-
             int ulga = rand.Next(0, 5) * 10;
             int price = basePrice - ulga;
-            ticket.Append(ulga.ToString() + '%' + ',');
-            ticket.Append(price.ToString() + ',');
-            return ticket.ToString();
+            var bilet = new Ticket { Ulga = ulga.ToString(), Cena = price.ToString() };
+            return bilet;
         }
     }
 }
