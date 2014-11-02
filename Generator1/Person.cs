@@ -23,7 +23,6 @@ namespace Generator1
             StringBuilder person = new StringBuilder(100);
             Random rand = new Random();
 
-            
 
             string name = GenerateName(names);
             string second_name = GenerateName(second_names);
