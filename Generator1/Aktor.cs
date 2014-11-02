@@ -17,17 +17,17 @@ namespace Generator1
         public string Gaza { get; set; }
         public string Wiek { get; set; }
 
-        public static Aktor GenerateAktor(out Aktor aktor)
+        public static Aktor GenerateAktor()
         {
             Random rand = new Random();
             string name = Person.GenerateName(Person.names);
             string second_name = Person.GenerateName(Person.second_names);
             string PESEL = Person.GenerateNumber(rand, 11);
+            string adress = Person.GenerateAddress(rand, Person.cities, Person.streets);
 
-            aktor = new Aktor();
-            aktor.Pesel = PESEL;
-            aktor.Imie = name;
-            aktor.Nazwisko = second_name;
+            var aktor = new Aktor {Pesel = PESEL, Imie = name, Nazwisko = second_name};
+
+            return aktor;
         }
     }
 }

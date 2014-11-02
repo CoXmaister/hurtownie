@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -124,15 +126,21 @@ namespace Generator1
             return "'" + email + "'";
         }
 
-        public static string GenerateAddress(Random rand, string[] cities, string[] streets)
+        public static string GenerateAddress(Random rand, string[] cities, string[] streets, string kodPocz, string streetNumb, string city)
         {
             int index = rand.Next(cities.Length);
             int index2 = rand.Next(streets.Length);
             StringBuilder address = new StringBuilder(100);
+            
+            int Number1 = rand.Next(100);
+            int Number2 = rand.Next(10, 99);
+            int Number3 = rand.Next(100, 999);
+            streetNumb = streets[index2] + " " + Number1;
+            kodPocz = Number2+"-"+Number3
             address.Append(streets[index2] + ' ');
-            address.Append(rand.Next(100) + ",");
-            address.Append(rand.Next(10, 99) + "-");
-            address.Append(rand.Next(100, 999) + " ");
+            address.Append(Number1 + ",");
+            address.Append(Number2 + "-");
+            address.Append(Number3 + " ");
             address.Append(ClearString(cities[index],"city"));
             return address.ToString();
 
