@@ -17,6 +17,7 @@ namespace Generator1
         public static string[] nicknames = System.IO.File.ReadAllLines(@"pseudonimy.txt");
         public static string[] streets = System.IO.File.ReadAllLines(@"ulice.txt");
         public static string[] cities = System.IO.File.ReadAllLines(@"miasta.txt");
+        public static string[] roles = { "glowna", "pierwszoplanowa", "drugoplanowa", "statysta", "tytulowa" };
 
         public static string GeneratePerson()
         {
@@ -44,7 +45,10 @@ namespace Generator1
             */
             return person.ToString();
         }
-
+        public static string GenerateRole(Random rand)
+        {
+            return roles[rand.Next(roles.Length)];
+        }
         public static string GenerateNumber(Random rand, int n)
         {
             StringBuilder telNo = new StringBuilder(12);

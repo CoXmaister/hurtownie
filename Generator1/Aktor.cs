@@ -17,6 +17,7 @@ namespace Generator1
         public string Miasto { get; set; }
         public string Gaza { get; set; }
         public string Wiek { get; set; }
+        public string Rola { get; set; }
         public string nickname { get; set; }
         public static Aktor GenerateAktor(Random rand)
         {
@@ -30,7 +31,12 @@ namespace Generator1
 
             aktor.Numer = Person.GenerateNumber(rand, 9);
             aktor.Gaza = rand.Next(3000, 10000).ToString();
-            aktor.Wiek = rand.Next(23, 60).ToString();
+            //aktor.Wiek = rand.Next(23, 60).ToString();
+
+            int w = Convert.ToInt32(PESEL.Substring(0, 2));
+            w = 100 - w + 14;
+            aktor.Wiek = w.ToString();
+            aktor.Rola = Person.GenerateRole(rand);
             aktor.nickname = Person.GenerateName(Person.nicknames,rand);
             return aktor;
         }
