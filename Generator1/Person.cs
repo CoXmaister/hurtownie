@@ -29,7 +29,7 @@ namespace Generator1
             string PESEL = GenerateNumber(rand, 11);
             string PhoneNumber = GenerateNumber(rand, 9);
             string email = GenerateEmail(rand, name, second_name);
-            string adress = GenerateAddress(rand, cities, streets);
+            
 
 
             person.Append(PESEL + ',');
@@ -136,7 +136,8 @@ namespace Generator1
             int Number2 = rand.Next(10, 99);
             int Number3 = rand.Next(100, 999);
             streetNumb = streets[index2] + " " + Number1;
-            kodPocz = Number2+"-"+Number3
+            kodPocz = Number2 + "-" + Number3;
+            city = ClearString(cities[index], "city");
             address.Append(streets[index2] + ' ');
             address.Append(Number1 + ",");
             address.Append(Number2 + "-");
