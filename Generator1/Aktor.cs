@@ -16,18 +16,21 @@ namespace Generator1
         public string Miasto { get; set; }
         public string Gaza { get; set; }
         public string Wiek { get; set; }
-
-        public static Aktor GenerateAktor()
+        public string nickname { get; set; }
+        public static Aktor GenerateAktor(Random rand)
         {
-            Random rand = new Random();
-            string name = Person.GenerateName(Person.names);
-            string second_name = Person.GenerateName(Person.second_names);
-            string PESEL = Person.GenerateNumber(rand, 11);
             
-            var aktor = new Aktor {Pesel = PESEL, Imie = name, Nazwisko = second_name};
-            Person.GenerateAddress(rand, Person.cities, Person.streets,aktor.Kod_pocztowy,aktor.Ulica_i_numer_domu,aktor.Miasto);
+            string name = Person.GenerateName(Person.names,rand);
+            string second_name = Person.GenerateName(Person.second_names,rand);
+            string PESEL = Person.GenerateNumber(rand, 11);
+            string kod, ulica, misto;
+            Person.GenerateAddress(rand, Person.cities, Person.streets, out kod, out ulica, out misto);
+            var aktor = new Aktor {Pesel = PESEL, Imie = name, Nazwisko = second_name,Ulica_i_numer_domu = ulica,Kod_pocztowy = kod,Miasto = misto};
+            
+            
             aktor.Gaza = rand.Next(3000, 10000).ToString();
             aktor.Wiek = rand.Next(23, 60).ToString();
+            aktor.nickname = Person.GenerateName(Person.nicknames,rand);
             return aktor;
         }
     }
