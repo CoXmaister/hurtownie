@@ -19,6 +19,7 @@ namespace Generator1
         public string Wiek { get; set; }
         public string Rola { get; set; }
         public string nickname { get; set; }
+
         public static Aktor GenerateAktor(Random rand)
         {
             
