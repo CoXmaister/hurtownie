@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using Excel =  Microsoft.Office.Interop.Excel;
+//using Excel =  Microsoft.Office.Interop.Excel;
 
 namespace Generator1
 {
+    /*
     class Excel1
     {
         public static void generateExcel(List<Aktor> kolekcjaAktors, List<Author> kolekcjaAuthors, List<Play> kolekcjaPlays)
@@ -209,4 +210,5 @@ namespace Generator1
         } 
 
     }
+     * */
 }

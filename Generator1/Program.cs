@@ -206,7 +206,7 @@ namespace Generator1
                 for (int i = 0; i < random; i++)
                 {
                     counetID ++;
-                    wystawienie = Wystawienie.GenerateWystawienie(counetID, sztuka, teatr, rand);
+                    wystawienie = Wystawienie.GenerateWystawienie(counetID, sztuka, teatr, rand, random);
                     kolekcjaWystawienie.Add(wystawienie);
 
                     wystawienieStr.Append(wystawienie.W_ID + ",");
@@ -236,35 +236,45 @@ namespace Generator1
 
             //TODO nie wiem czy to nie jest błąd w projekcie bazy, ale połączenie n:1 dla sprzedazy i biletu to chyba sredniuo, bo bilet sprzedajemy tylko raz i jest on tylko na jedna sztuke?
             //TODO tak mi sie wydaje, dlatego robie tytaj oreacha po kazdym bilecie i dobieram mu jedna sztuke
+
+            //Nie do konca. W takiej sytuacji mozna sprzedac tylko 1 bilet ulgowy 30%, 1 bilet 100% i jeden bilet 50%. Bilety nie oznaczaja pojedynczych wejsciowek tylko grupy biletow
+            //zmieniam w ticketsach ich generowanie
+
             count = kolekcjaTickets.Count;
-            List<Wystawienie> tmpWystawienie = new List<Wystawienie>(kolekcjaWystawienie);
             foreach (Ticket ticket in kolekcjaTickets)
             {
                 count--;
-                if (tmpWystawienie.Count == 1)
-                {
-                    tmpWystawienie = new List<Wystawienie>(kolekcjaWystawienie);
-                }
+           
 
+                List<Wystawienie> tmpWystawienie = new List<Wystawienie>(kolekcjaWystawienie);
+                int random = rand.Next(5, 15);
 
-                int random = rand.Next(tmpWystawienie.Count);
-                Wystawienie wyst = tmpWystawienie[random];
-                sprzedaz = Sprzedaz.GenerateSprzedaz(wyst, ticket, rand);
-                kolekcjaSprzedaz.Add(sprzedaz);
-                tmpWystawienie.Remove(wyst);
-                sprzedazStr.Append(sprzedaz.W_ID + ",");
-                sprzedazStr.Append(sprzedaz.B_ID + ",");
-                sprzedazStr.Append(sprzedaz.FirstTime);
-                if (count > 0)
+                for (int i = 0; i < random; i++)
                 {
-                    strWriterSprzedaz.WriteLine(sprzedazStr);
+
+                    Wystawienie wyst = tmpWystawienie[rand.Next(tmpWystawienie.Count)];
+                    sprzedaz = Sprzedaz.GenerateSprzedaz(wyst, ticket, rand);
+                    kolekcjaSprzedaz.Add(sprzedaz);
+                    tmpWystawienie.Remove(wyst);
+                    sprzedazStr.Append(sprzedaz.W_ID + ",");
+                    sprzedazStr.Append(sprzedaz.B_ID + ",");
+                    sprzedazStr.Append(sprzedaz.FirstTime);
+                    if (count != 0)
+                    {
+                        strWriterSprzedaz.WriteLine(sprzedazStr);
+                    }
+                    else if (i < random - 1)
+                    {
+                        strWriterSprzedaz.WriteLine(sprzedazStr);
+
+                    }
+                    else
+                    {
+                        strWriterSprzedaz.Write(sprzedazStr);
+                    }
+                    strWriterSprzedaz.Flush();
+                    sprzedazStr.Clear();
                 }
-                else
-                {
-                    strWriterSprzedaz.Write(sprzedazStr);
-                }
-                strWriterSprzedaz.Flush();
-                sprzedazStr.Clear();
             }
 
             //Excel1.generateExcel(kolekcjaAktors,kolekcjaAuthors,kolekcjaPlay);

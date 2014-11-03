@@ -15,7 +15,7 @@ namespace Generator1
         public string Godzina { get; set; }
         public string Sala { get; set; }
 
-        public static Wystawienie GenerateWystawienie(int id, Play play, Teatr teatr,Random rand)
+        public static Wystawienie GenerateWystawienie(int id, Play play, Teatr teatr,Random rand, int max)
         {
             Wystawienie wystawienie = new Wystawienie();
 
@@ -26,8 +26,11 @@ namespace Generator1
             string[] minuta = {"00", "15", "30", "45"};
             wystawienie.Godzina = godzina[rand.Next(godzina.Length)] + minuta[rand.Next(minuta.Length)];
             wystawienie.Sala = rand.Next(1, 6).ToString();
+            DateTime today = DateTime.Today;
+
             //TODO To trzeba poprawić
-            wystawienie.Data = RandomDay(rand).ToShortDateString();// To trzeba podreperować
+            int tmp_id = Convert.ToInt32(id) - max;
+            wystawienie.Data = today.AddDays(tmp_id).ToString();
             return wystawienie;
         }
 
