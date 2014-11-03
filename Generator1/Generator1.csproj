@@ -46,14 +46,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aktor.cs" />
+    <Compile Include="Aktorstwo.cs" />
     <Compile Include="Author.cs" />
+    <Compile Include="Autorstwo.cs" />
     <Compile Include="Excel1.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Play.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sprzedaz.cs" />
     <Compile Include="Teatr.cs" />
     <Compile Include="Ticket.cs" />
+    <Compile Include="Wystawienie.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
