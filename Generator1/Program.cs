@@ -27,6 +27,7 @@ namespace Generator1
         static List<Sprzedaz> kolekcjaSprzedaz = new List<Sprzedaz>();
         static Sprzedaz sprzedaz = new Sprzedaz();
         static List<Play> kolekcjaPlay = new List<Play>();
+        //'System.TypeInitializationException' 
         static Play play = new Play();
             
         [STAThread] 
