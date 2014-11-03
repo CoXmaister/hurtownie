@@ -267,8 +267,7 @@ namespace Generator1
                 sprzedazStr.Clear();
             }
 
-
-            // Excel1.generateExcel(kolekcjaAktors,kolekcjaAuthors);
+            //Excel1.generateExcel(kolekcjaAktors,kolekcjaAuthors,kolekcjaPlay);
             Console.ReadLine();
         }
     }

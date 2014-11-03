@@ -30,6 +30,7 @@ namespace Generator1
 
         public static Play GeneratePlay(Random rand, int amount, List<Aktor> kolekcjaAktors, List<Author> kolekcjaAuthors, int id)
         {
+            //TODO zgodnosc autorow i aktorow z aktorstwa i autorstwa z tym oto tutaj...
             Play play = new Play();
             play.Tytul = GenerateName(rand, names, amount);
             Author author = kolekcjaAuthors[rand.Next(kolekcjaAuthors.Count)];

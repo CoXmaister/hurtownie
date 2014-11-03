@@ -10,7 +10,7 @@ namespace Generator1
 {
     class Excel1
     {
-        public static void generateExcel(List<Aktor> kolekcjaAktors, List<Author> kolekcjaAuthors)
+        public static void generateExcel(List<Aktor> kolekcjaAktors, List<Author> kolekcjaAuthors, List<Play> kolekcjaPlays)
         {
             Microsoft.Office.Interop.Excel.Application xlexcel;
             Microsoft.Office.Interop.Excel.Workbook xlWorkBook;
@@ -19,9 +19,8 @@ namespace Generator1
             object misValue = System.Reflection.Missing.Value;
             xlexcel = new Excel.Application();
             xlexcel.Visible = true;
-
             //~~> Add a new a workbook
-            xlWorkBook = xlexcel.Workbooks.Add(misValue);
+            xlWorkBook = xlexcel.Workbooks.Open(@"C:\Users\CoX\Documents\Visual Studio 2013\Projects\Generator1\Generator1\bin\Debug\excel.xlsx");
 
             //~~> Set Sheet 1 as the sheet you want to work with
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.Item[2];
@@ -64,7 +63,7 @@ namespace Generator1
                 Clipboard.SetText(Column);
                 Column = "";
                 //~~> Set your range
-                CR = (Excel.Range)xlWorkSheet.Cells[1, i];
+                CR = (Excel.Range)xlWorkSheet.Cells[2, i];
 
                 CR.Select();
 
@@ -120,7 +119,7 @@ namespace Generator1
                 Clipboard.SetText(Column);
                 Column = "";
                 //~~> Set your range
-                CR = (Excel.Range)xlWorkSheet.Cells[1, i];
+                CR = (Excel.Range)xlWorkSheet.Cells[2, i];
 
                 CR.Select();
                 try
@@ -133,6 +132,54 @@ namespace Generator1
                     MessageBox.Show("Unable to Paste clippboard to sheet " + ex.ToString());
                 }
                 
+            }
+
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.Item[3];
+            xlWorkSheet.Select();
+
+            for (int i = 1; i < 5 + 1; i++)
+            {
+                foreach (Play play in kolekcjaPlays)
+                {
+                    switch (i)
+                    {
+                        case 1:
+                            Column += play.Tytul + Environment.NewLine;
+                            break;
+                        case 2:
+                            Column += play.Autor+ Environment.NewLine;
+                            break;
+                        case 3:
+                            Column += play.Gatunek + Environment.NewLine;
+                            break;
+                        case 4:
+                            foreach (Aktor aktor in play.ListaAktorow)
+                            {
+                                Column += aktor.Imie + " " + aktor.Nazwisko + ", ";
+                            }
+                            Column += Environment.NewLine;
+                            break;
+                        case 5:
+                            Column += play.Rezyser + Environment.NewLine;
+                            break;
+                    }
+                }
+                Clipboard.SetText(Column);
+                Column = "";
+                //~~> Set your range
+                CR = (Excel.Range)xlWorkSheet.Cells[2, i];
+
+                CR.Select();
+                try
+                {
+                    xlWorkSheet.Paste(CR, false);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Unable to Paste clippboard to sheet " + ex.ToString());
+                }
+
             }
 
             xlWorkBook.Close(true, misValue, misValue);
